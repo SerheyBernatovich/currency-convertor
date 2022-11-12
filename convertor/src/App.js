@@ -16,9 +16,12 @@ function App() {
 
       .then((json) => {
         // setRates(rates);
-        ratesRef.current = json;
+        ratesRef.current = json.reduce((acc, val) => {
+          acc[val.cc] = val.rate;
+          return acc;
+        }, {});
         onChangeToPrice(1);
-        console.log(json);
+        console.log(ratesRef.current);
       })
       .catch((err) => {
         console.warn(err);
